@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <contact person="Batman" phone="321-32-32" email="batman@i.ua" />
+  <contact person="Superman" phone="007-07-07" email="supeman007@i.ua" />
+  <contact person="Spiderman" phone="774-74-74" email="spiderman@i.ua" />
+  <contact person="Deadpool" phone="777-77-77" email="deadpool@i.ua" />
+  <contact person="Joker" phone="228-28-28" email="joker1977@i.ua" />
+</root>
