@@ -10,4 +10,9 @@
         <Setter Property="Padding" Value="15"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource baseFont}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="125"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
 </ResourceDictionary>

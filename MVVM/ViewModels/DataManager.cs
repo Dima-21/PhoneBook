@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using MVVM.Models;
 using System.Collections.ObjectModel;
+using MVVM.Commands;
 
 namespace MVVM.ViewModels
 {
@@ -18,7 +19,43 @@ namespace MVVM.ViewModels
 
         private Contact selectedContact;
 
-        public ObservableCollection<Contact> Contacts{ get; set; }
+        public ObservableCollection<Contact> Contacts { get; set; }
+
+        // Commands:
+
+        private AddCommand add;
+        public AddCommand Add
+        {
+            get
+            {
+                if (add == null)
+                    add = new AddCommand(this);
+                return add;
+            }
+        }
+
+        private DelCommand del;
+        public DelCommand Del
+        {
+            get
+            {
+                if (del == null)
+                    del = new DelCommand(this);
+                return del;
+            }
+        }
+
+        private SaveCommand save;
+        public SaveCommand Save
+        {
+            get
+            {
+                if (save == null)
+                    save = new SaveCommand(this);
+                return save;
+            }
+
+        }
 
         public Contact SelectedContact
         {
@@ -28,6 +65,16 @@ namespace MVVM.ViewModels
                 selectedContact = value;
                 OnPropertyChanged("SelectedContact");
             }
+        }
+
+        public void SaveContact(Contact c)
+        {
+            XElement newElem = new XElement("contact",
+                new XAttribute("person", c.Person),
+                new XAttribute("phone", c.Phone),
+                new XAttribute("email", c.Email));
+            doc.Element("root").Add(newElem);
+            doc.Save(path);
         }
 
         public DataManager()
@@ -51,7 +98,18 @@ namespace MVVM.ViewModels
                 };
                 Contacts.Add(c);
             }
-            
+
+        }
+
+        public void DelContact(Contact c)
+        {
+            var res = doc.Element("root").Elements("contact")
+                .Where(x => x.Attribute("person").Value == c.Person).FirstOrDefault();
+            if (res != null)
+            {
+                res.Remove();
+                doc.Save(path);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

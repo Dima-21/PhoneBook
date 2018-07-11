@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM"
         mc:Ignorable="d"
-        Title="PhoneBook" Height="400" Width="525">
+        Title="PhoneBook" Height="670" Width="525">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="/Images/phone.ico" Width="60" Margin="5"/>
+            <TextBlock Text="PhoneBook" Style="{StaticResource baseFont}" FontSize="50" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 5"/>
+        </StackPanel>
         <GroupBox Header="Список контактов">
-            <ListView x:Name="List1" ItemsSource="{Binding Path=Contacts}"
+            <ListView x:Name="List1" ItemsSource="{Binding Path=Contacts}" Height="150"
                       SelectedItem="{Binding Path=SelectedContact}">
                 <ListView.View>
                     <GridView>
@@ -22,13 +27,22 @@
         <GroupBox Header="Редактирование данных">
             <StackPanel DataContext="{Binding Path=SelectedContact}">
                 <Label Content="Name:"/>
-                <TextBox Text="{Binding Path=Person}"/>
+                <TextBox Text="{Binding Path=Person, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Phone:"/>
-                <TextBox Text="{Binding Path=Phone}"/>
+                <TextBox Text="{Binding Path=Phone, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Email:"/>
-                <TextBox Text="{Binding Path=Email}"/>
+                <TextBox Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Управление"></GroupBox>
+        <GroupBox Header="Управление">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Добавить" 
+                        Command="{Binding Path=Add}"/>
+                <Button Content="Сохранить" 
+                        Command="{Binding Path=Save}"/>
+                <Button Content="Удалить" 
+                        Command="{Binding Path=Del}"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>
